@@ -17,7 +17,7 @@ exports.handler = function(context, event, callback) {
   });
   gather.say('Press 1 for software issues. Press 2 for password resets. Press 3 for troubleshooting common problems.', { voice: 'Polly.Joanna' });
 
-  twiml.say('Thank you for calling our technical support. Goodbye!', { voice: 'Polly.Joanna' });
+  twiml.say('If you did not make a selection, please call again. Thank you for calling. Goodbye!', { voice: 'Polly.Joanna' });
   twiml.hangup();
 
   callback(null, twiml);
