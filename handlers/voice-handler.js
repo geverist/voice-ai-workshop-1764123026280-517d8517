@@ -9,15 +9,15 @@ exports.handler = function(context, event, callback) {
   const twilio = require('twilio');
   const twiml = new twilio.twiml.VoiceResponse();
 
-  twiml.say('Hello! Thank you for calling our University Information Center.', { voice: 'Polly.Joanna' });
+  twiml.say('Hello! Thank you for calling our technical support.', { voice: 'Polly.Joanna' });
 
   const gather = twiml.gather({
     numDigits: 1,
     timeout: 10
   });
-  gather.say('If you have questions about admissions, press 1. For information on our programs, press 2. To learn more about campus life, press 3.', { voice: 'Polly.Joanna' });
+  gather.say('Press 1 for software issues. Press 2 for password resets. Press 3 for troubleshooting common problems. Press 0 to speak with a support representative.', { voice: 'Polly.Joanna' });
 
-  twiml.say('Thank you for calling our University Information Center. Goodbye!', { voice: 'Polly.Joanna' });
+  twiml.say('Thank you for calling our technical support. Goodbye!', { voice: 'Polly.Joanna' });
   twiml.hangup();
 
   callback(null, twiml);
