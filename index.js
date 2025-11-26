@@ -192,7 +192,6 @@ Remember: You're having a natural conversation, not reading a script!`;
     const phoneMatch = userMessage.match(/(d{3}[-.]?d{3}[-.]?d{4})/);
     if (phoneMatch) conversationState.appointmentData.phone = phoneMatch[0];
 
-    // Update stage based on collected data
     const missing = getMissingFields();
     if (conversationState.stage === 'greeting' && userMessage.match(/book|appointment|schedule/i)) {
       conversationState.stage = 'collecting_info';
@@ -242,7 +241,6 @@ Remember: You're having a natural conversation, not reading a script!`;
           const assistantMessage = completion.choices[0].message;
           conversationHistory.push(assistantMessage);
 
-          // Check if AI wants to call a tool
           if (assistantMessage.tool_calls) {
             for (const toolCall of assistantMessage.tool_calls) {
               const functionName = toolCall.function.name;
@@ -257,7 +255,6 @@ Remember: You're having a natural conversation, not reading a script!`;
                   toolResult = await checkAvailability(functionArgs);
                   break;
                 case 'book_appointment':
-                  // Update state - we're now booking
                   conversationState.stage = 'booking';
                   toolResult = await bookAppointment(functionArgs);
                   // Move to complete state after booking
@@ -278,7 +275,6 @@ Remember: You're having a natural conversation, not reading a script!`;
               });
             }
 
-            // Get AI's final response after tool execution
             const finalCompletion = await openai.chat.completions.create({
               model: 'gpt-4',
               messages: conversationHistory
