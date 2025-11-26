@@ -15,7 +15,7 @@ exports.handler = function(context, event, callback) {
     numDigits: 1,
     timeout: 10
   });
-  gather.say('Press 1 to inquire about an order. Press 2 to track a shipment. Press 3 to process a return. Press 4 for product questions.', { voice: 'Polly.Joanna' });
+  gather.say('Press 1 to inquire about an order. Press 2 to track a shipment. Press 3 to process a return. Press 4 to ask a product question.', { voice: 'Polly.Joanna' });
 
   twiml.say('Thank you for calling our online store support. Goodbye!', { voice: 'Polly.Joanna' });
   twiml.hangup();
