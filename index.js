@@ -20,7 +20,7 @@ exports.handler = async function(context, event, callback) {
 
   // Tool Definitions
   const tools = [
-{
+    {
       type: "function",
       name: "check_availability",
       description: "Check available appointment slots for a given date",
@@ -59,19 +59,6 @@ exports.handler = async function(context, event, callback) {
           message: { type: "string", description: "Confirmation message" }
         },
         required: ["phone", "message"]
-      }
-    },
-    {
-      type: "function",
-      name: "send_sms",
-      description: "Send SMS message to customer",
-      parameters: {
-        type: "object",
-        properties: {
-          to: { type: "string", description: "Customer phone number (E.164 format)" },
-          message: { type: "string", description: "Message content (max 1600 chars)" }
-        },
-        required: ["to", "message"]
       }
     }
   ];
@@ -387,34 +374,4 @@ Remember: You're having a natural conversation, not reading a script!`;
       };
     }
   }
-
-  // ============================================
-  // SMS FUNCTION - Added from examples
-  // ============================================
-
-  async function sendSMS(args, twilioClient, context) {
-    try {
-      const { to, message } = args;
-  
-      const sms = await twilioClient.messages.create({
-        body: message,
-        from: context.DEFAULT_TWILIO_NUMBER,  // Your Twilio number
-        to: to
-      });
-  
-      return {
-        success: true,
-        messageSid: sms.sid,
-        status: sms.status,
-        message: 'SMS sent successfully'
-      };
-    } catch (error) {
-      console.error('SMS error:', error);
-      return {
-        success: false,
-        error: error.message
-      };
-    }
-  }
-  
 };
